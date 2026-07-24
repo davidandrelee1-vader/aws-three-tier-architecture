@@ -149,3 +149,51 @@ A NAT Gateway provides outbound internet connectivity for private resources whil
 - Private Networking
 - Secure Internet Access
 - AWS Networking Best Practices
+
+## Phase 5 - Configure Security Groups
+
+Three security groups were created to implement layered network security across the three-tier architecture.
+
+### Security Group Design
+
+| Security Group | Purpose |
+|---------------|---------|
+| alb-sg | Allows inbound HTTP traffic from the internet |
+| app-sg | Allows HTTP traffic only from the Application Load Balancer |
+| db-sg | Allows MySQL connections only from the EC2 application servers |
+
+### Screenshot 1 - Security Groups Created
+
+![Security Groups](15-security-groups-created.png)
+
+### Screenshot 2 - ALB Security Group
+
+![ALB SG](16-alb-security-group.png)
+
+### Screenshot 3 - Application Security Group
+
+![Application SG](17-app-security-group.png)
+
+### Screenshot 4 - Database Security Group
+
+![Database SG](18-db-security-group.png)
+
+### Why?
+
+Using separate security groups for each tier enforces the principle of least privilege. The Application Load Balancer is the only component exposed to the internet, application servers accept traffic only from the load balancer, and the database accepts connections only from the application tier. This layered approach improves security and reduces the attack surface.
+
+### Cloud Engineer Notes
+
+- Created dedicated security groups for each architecture tier.
+- Used security group references instead of CIDR blocks for internal communication.
+- Restricted direct access to application servers and the database.
+- Implemented layered network security following AWS best practices.
+
+### Skills Demonstrated
+
+- Amazon VPC Security Groups
+- Least Privilege Access
+- Layered Network Security
+- Application Load Balancer Security
+- EC2 Security
+- Amazon RDS Security
