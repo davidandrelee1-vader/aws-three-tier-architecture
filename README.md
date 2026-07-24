@@ -246,7 +246,7 @@ An internet-facing Application Load Balancer (ALB) and Target Group were deploye
 
 ### Screenshot 2 - Registered Target (Healthy)
 
-![Target Group Healthy](23-target-group-healthy.png)
+![Target Group Healthy](25-target-healthy.png)
 
 ### Screenshot 3 - Application Load Balancer Active
 
