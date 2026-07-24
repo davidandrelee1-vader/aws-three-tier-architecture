@@ -71,6 +71,13 @@ Six subnets were created across two Availability Zones to support high availabil
 
 Separating the architecture into public, application, and database subnets limits direct exposure to the internet. Distributing the subnets across two Availability Zones also improves resilience and prepares the environment for a highly available load balancer, Auto Scaling group, and RDS deployment.
 
+### Cloud Engineer Notes
+
+- Designed a three-tier network architecture using dedicated public, application, and database subnets.
+- Distributed resources across two Availability Zones to improve availability and resilience.
+- Reserved private subnets for application and database resources to minimize internet exposure.
+- Prepared the network for an Application Load Balancer, Auto Scaling Group, NAT Gateway, and Amazon RDS deployment.
+- 
 ## Step 3...
 
 ...
