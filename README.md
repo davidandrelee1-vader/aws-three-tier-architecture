@@ -78,6 +78,36 @@ Separating the architecture into public, application, and database subnets limit
 - Reserved private subnets for application and database resources to minimize internet exposure.
 - Prepared the network for an Application Load Balancer, Auto Scaling Group, NAT Gateway, and Amazon RDS deployment.
 - 
-## Step 3...
+## Phase 3 - Configure Route Tables
+
+Three custom route tables were created to control traffic for the public, application, and database tiers.
+
+### Route Table Design
+
+| Route Table | Subnets | Internet Route |
+|---|---|---|
+| public-rt | public-subnet-az1 and public-subnet-az2 | 0.0.0.0/0 → Internet Gateway |
+| app-private-rt | app-subnet-az1 and app-subnet-az2 | Local route only |
+| db-private-rt | db-subnet-az1 and db-subnet-az2 | Local route only |
+
+### Screenshot 1 - Route Tables Created
+
+![Route Tables](07-route-tables-created.png)
+
+### Screenshot 2 - Public Internet Route
+
+![Public Route](08-public-route-to-internet-gateway.png)
+
+### Screenshot 3 - Public Subnet Associations
+
+![Public Associations](09-public-subnet-associations.png)
+
+### Screenshot 4 - Private Route Table Associations
+
+![Private Associations](10-private-route-table-associations.png)
+
+### Why?
+
+The public route table sends internet-bound traffic to the Internet Gateway, making its associated subnets public. The application and database route tables currently contain only the local VPC route, preventing direct internet access and maintaining separation between the architecture tiers.
 
 ...
