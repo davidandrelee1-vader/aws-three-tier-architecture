@@ -57,7 +57,7 @@ Six subnets were created across two Availability Zones to support high availabil
 
 ### Screenshot 1 - Six Subnets Created
 
-![Six Subnets Created](04-six-subnets-created.png)
+![Six Subnets Created]([04-subnets-Created.png)
 
 ### Screenshot 2 - Subnets Across Two Availability Zones
 
