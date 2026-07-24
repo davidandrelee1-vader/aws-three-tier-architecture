@@ -254,7 +254,7 @@ An internet-facing Application Load Balancer (ALB) and Target Group were deploye
 
 ### Screenshot 4 - Website Accessed Through ALB
 
-![Website Through ALB](25-website-through-alb.png)
+![Website Through ALB](26-website-through-alb.png)
 
 ### Why?
 
