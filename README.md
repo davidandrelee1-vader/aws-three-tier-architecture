@@ -276,3 +276,34 @@ The Application Load Balancer acts as the single entry point for web traffic, di
 - High Availability
 - Layer 7 Load Balancing
 - AWS Networking
+
+## Phase 8 - Create the Golden AMI
+
+A custom Amazon Machine Image (AMI) was created from the configured EC2 web server. This AMI serves as the golden image for future deployments, ensuring that every EC2 instance launched by the Auto Scaling Group has an identical operating system, web server configuration, and application content.
+
+### Screenshot 1 - AMI Available
+
+![AMI Available](27-ami-available.png)
+
+### Screenshot 2 - EBS Snapshot Created
+
+![EBS Snapshot](28-ebs-snapshot-created.png)
+
+### Why?
+
+Creating a golden AMI provides a standardized and reusable server image for future deployments. Instead of manually configuring each EC2 instance, the Auto Scaling Group can launch identical instances from the AMI, ensuring consistency, reducing deployment time, and minimizing configuration drift.
+
+### Cloud Engineer Notes
+
+- Created a custom AMI from the configured EC2 web server.
+- Captured the Amazon Linux 2023 operating system, Apache web server, and deployed application.
+- Generated an Amazon EBS snapshot to preserve the instance volume.
+- Prepared the AMI for use in a Launch Template and Auto Scaling Group.
+
+### Skills Demonstrated
+
+- Amazon Machine Image (AMI)
+- Amazon EBS Snapshots
+- Infrastructure Standardization
+- Immutable Infrastructure
+- Auto Scaling Preparation
