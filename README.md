@@ -307,3 +307,35 @@ Creating a golden AMI provides a standardized and reusable server image for futu
 - Infrastructure Standardization
 - Immutable Infrastructure
 - Auto Scaling Preparation
+
+## Phase 9 - Create the Launch Template
+
+A Launch Template was created using the custom Amazon Machine Image (AMI). This template defines the EC2 configuration that the Auto Scaling Group will use to automatically launch replacement and additional instances.
+
+### Screenshot 1 - Launch Template Created
+
+![Launch Template Created](29-launch-template-created.png)
+
+### Screenshot 2 - Launch Template Details
+
+![Launch Template Details](30-launch-template-details.png)
+
+### Why?
+
+A Launch Template standardizes EC2 deployments by defining the instance configuration in a reusable template. This allows the Auto Scaling Group to launch identical instances from the golden AMI, ensuring consistency, reducing manual configuration, and supporting automated scaling.
+
+### Cloud Engineer Notes
+
+- Created a Launch Template using the custom AMI.
+- Configured the template to use the `app-sg` security group.
+- Selected the `t3.micro` instance type.
+- Left subnet selection to the Auto Scaling Group for multi-AZ deployments.
+- Used the Launch Template as the foundation for automated instance provisioning.
+
+### Skills Demonstrated
+
+- EC2 Launch Templates
+- Amazon Machine Images (AMI)
+- Infrastructure Standardization
+- Auto Scaling Preparation
+- Immutable Infrastructure
