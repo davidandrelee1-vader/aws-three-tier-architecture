@@ -77,7 +77,7 @@ Separating the architecture into public, application, and database subnets limit
 - Distributed resources across two Availability Zones to improve availability and resilience.
 - Reserved private subnets for application and database resources to minimize internet exposure.
 - Prepared the network for an Application Load Balancer, Auto Scaling Group, NAT Gateway, and Amazon RDS deployment.
-- 
+  
 ## Phase 3 - Configure Route Tables
 
 Three custom route tables were created to control traffic for the public, application, and database tiers.
@@ -110,4 +110,42 @@ Three custom route tables were created to control traffic for the public, applic
 
 The public route table sends internet-bound traffic to the Internet Gateway, making its associated subnets public. The application and database route tables currently contain only the local VPC route, preventing direct internet access and maintaining separation between the architecture tiers.
 
-...
+## Phase 4 - Configure NAT Gateway
+
+A public NAT Gateway was deployed to provide secure outbound internet access for application servers hosted in private subnets. The NAT Gateway allows EC2 instances to download updates and access external services without exposing them directly to inbound internet traffic.
+
+### Screenshot 1 - Elastic IP Allocated
+
+![Elastic IP](11-nat-elastic-ip.png)
+
+### Screenshot 2 - NAT Gateway Available
+
+![NAT Gateway](12-nat-gateway-created.png)
+
+### Screenshot 3 - Application Route Table
+
+![Application Route](13-app-route-table-nat.png)
+
+### Screenshot 4 - Database Route Table
+
+![Database Route](14-db-route-table-isolated.png)
+
+### Why?
+
+A NAT Gateway provides outbound internet connectivity for private resources while blocking unsolicited inbound connections. This design follows AWS security best practices by keeping application servers private while still allowing them to access software repositories and AWS services. The database subnets remain isolated to reduce the attack surface.
+
+### Cloud Engineer Notes
+
+- Allocated an Elastic IP for the NAT Gateway.
+- Deployed a public NAT Gateway.
+- Updated the application route table to route outbound traffic through the NAT Gateway.
+- Left the database route table isolated with only the local VPC route.
+
+### Skills Demonstrated
+
+- Amazon NAT Gateway
+- Elastic IP
+- Route Tables
+- Private Networking
+- Secure Internet Access
+- AWS Networking Best Practices
