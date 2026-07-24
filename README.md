@@ -197,3 +197,82 @@ Using separate security groups for each tier enforces the principle of least pri
 - Application Load Balancer Security
 - EC2 Security
 - Amazon RDS Security
+
+## Phase 6 - Launch EC2 Web Server
+
+A private Amazon EC2 instance was launched in the application subnet to host the web application. The instance was configured using EC2 User Data to automatically install the Apache web server, enable the service at boot, and deploy a custom HTML page displaying the instance ID and Availability Zone.
+
+### Screenshot 1 - EC2 Launch Configuration
+
+![EC2 Launch Configuration](19-ec2-launch-configuration.png)
+
+### Screenshot 2 - EC2 Instance Running
+
+![EC2 Instance Running](20-ec2-instance-running.png)
+
+### Screenshot 3 - EC2 Networking
+
+![EC2 Networking](21-ec2-networking.png)
+
+### Why?
+
+The EC2 instance was deployed in a private application subnet to prevent direct internet access while allowing traffic only from the Application Load Balancer. During launch, a User Data script automatically configured the web server, demonstrating infrastructure automation and reducing the need for manual server configuration.
+
+### Cloud Engineer Notes
+
+- Launched an Amazon Linux 2023 EC2 instance in a private application subnet.
+- Associated the instance with the `app-sg` security group.
+- Disabled public IP assignment to keep the instance private.
+- Used EC2 User Data to automatically install and configure Apache.
+- Prepared the instance to become the golden image for the Auto Scaling Group.
+
+### Skills Demonstrated
+
+- Amazon EC2
+- Amazon Linux 2023
+- EC2 User Data
+- Infrastructure Automation
+- Private Subnet Deployment
+- Apache HTTP Server
+- Security Groups
+
+  ## Phase 7 - Configure Application Load Balancer
+
+An internet-facing Application Load Balancer (ALB) and Target Group were deployed to distribute incoming HTTP requests to the private EC2 application server. Health checks verified that the application was successfully deployed and responding to client requests.
+
+### Screenshot 1 - Target Group Created
+
+![Target Group](22-target-group-created.png)
+
+### Screenshot 2 - Registered Target (Healthy)
+
+![Target Group Healthy](23-target-group-healthy.png)
+
+### Screenshot 3 - Application Load Balancer Active
+
+![Application Load Balancer](24-application-load-balancer-active.png)
+
+### Screenshot 4 - Website Accessed Through ALB
+
+![Website Through ALB](25-website-through-alb.png)
+
+### Why?
+
+The Application Load Balancer acts as the single entry point for web traffic, distributing requests across application servers while continuously monitoring their health. This improves scalability, availability, and fault tolerance by ensuring traffic is only sent to healthy instances.
+
+### Cloud Engineer Notes
+
+- Created an Application Load Balancer in two public subnets.
+- Configured an HTTP listener on port 80.
+- Created a Target Group using instance targets.
+- Registered the EC2 application server with the Target Group.
+- Verified successful health checks and application accessibility through the ALB DNS name.
+
+### Skills Demonstrated
+
+- Application Load Balancer (ALB)
+- Target Groups
+- Health Checks
+- High Availability
+- Layer 7 Load Balancing
+- AWS Networking
