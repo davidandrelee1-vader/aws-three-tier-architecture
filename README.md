@@ -654,3 +654,86 @@ Amazon RDS provides a fully managed relational database service that automates d
 - Network Segmentation
 - Managed Database Services
 - AWS Security Best Practices
+
+  # Cost Optimization
+
+Although this project demonstrates a production-style AWS three-tier architecture, several design decisions were made to keep costs as low as possible while preserving the overall architecture.
+
+## Cost Optimization Strategies
+
+- Used burstable EC2 instances (`t3.micro`) for the application tier.
+- Used Amazon Linux 2023, which has no additional licensing costs.
+- Configured Amazon RDS using the smallest available development instance.
+- Used a single NAT Gateway for the lab environment instead of deploying one per Availability Zone.
+- Used General Purpose SSD (gp3) storage for EC2 and RDS.
+- Disabled unnecessary RDS features such as Enhanced Monitoring and Performance Insights.
+- Disabled Storage Autoscaling for the lab environment.
+- Configured Amazon RDS with a one-day backup retention period.
+- Used a single Application Load Balancer for all application traffic.
+- Built the environment manually to better understand AWS networking and infrastructure components before automating with Infrastructure as Code.
+
+> **Note:** In a production environment, additional resources such as Multi-AZ RDS, multiple NAT Gateways, enhanced monitoring, and more aggressive scaling policies would typically be implemented to improve resilience and availability.
+
+---
+
+# Resource Cleanup
+
+To avoid unnecessary AWS charges, all resources should be deleted after testing and documentation are complete.
+
+## Cleanup Order
+
+1. Delete the Auto Scaling Group
+2. Delete the Launch Template
+3. Deregister and delete the Amazon Machine Image (AMI)
+4. Delete the associated EBS Snapshot
+5. Delete the Application Load Balancer
+6. Delete the Target Group
+7. Terminate EC2 instances
+8. Delete the Amazon RDS database
+9. Delete the DB Subnet Group
+10. Delete the NAT Gateway
+11. Release the Elastic IP
+12. Delete Security Groups
+13. Delete Route Tables
+14. Delete Subnets
+15. Detach and delete the Internet Gateway
+16. Delete the Amazon VPC
+
+Following this order helps prevent dependency errors during resource deletion.
+
+---
+
+# Lessons Learned
+
+This project provided hands-on experience designing, deploying, troubleshooting, and documenting a production-style AWS environment.
+
+Key lessons included:
+
+- Designing secure VPC networking using public and private subnets.
+- Configuring route tables and NAT Gateways for controlled internet access.
+- Implementing layered security using Security Groups.
+- Deploying EC2 instances with automated configuration through EC2 User Data.
+- Creating reusable infrastructure with Amazon Machine Images (AMIs) and Launch Templates.
+- Implementing high availability using Application Load Balancers and Auto Scaling Groups.
+- Deploying Amazon RDS within private database subnets following AWS security best practices.
+- Troubleshooting networking, load balancing, and connectivity issues throughout the deployment process.
+- Producing professional technical documentation suitable for a cloud engineering portfolio.
+
+---
+
+# Future Improvements
+
+Potential enhancements for this architecture include:
+
+- Provision the infrastructure using Terraform.
+- Add HTTPS using AWS Certificate Manager (ACM).
+- Configure Route 53 with a custom domain.
+- Store application secrets using AWS Secrets Manager.
+- Implement AWS WAF for additional application protection.
+- Enable Amazon CloudWatch dashboards and alarms.
+- Enable AWS CloudTrail for auditing.
+- Integrate AWS Systems Manager Session Manager for secure administration.
+- Deploy the application using a CI/CD pipeline with GitHub Actions.
+- Containerize the application using Amazon ECS or Amazon EKS.
+
+  # IF YOU MADE IT TO THE END THANKS FOR CHECKING THIS OUT!!!!! MAY THE FORCE BE WITH YOU!!
