@@ -1,24 +1,84 @@
 # AWS Three-Tier Web Architecture
 
+> **A production-style three-tier web application architecture built on Amazon Web Services (AWS) using best practices for networking, security, scalability, high availability, and infrastructure automation.**
+
 ## Project Overview
 
-This project demonstrates how to build a production-style three-tier web architecture in AWS.
+This project demonstrates the design, deployment, and documentation of a highly available three-tier web architecture in AWS. The environment was built manually to strengthen cloud engineering fundamentals and gain hands-on experience with designing secure, scalable, and fault-tolerant infrastructure.
+
+The architecture separates the presentation, application, and database layers into dedicated subnets across multiple Availability Zones. Traffic is distributed using an Application Load Balancer, application servers are managed by an Auto Scaling Group, and the database tier is secured using Amazon RDS within private subnets.
+
+This project follows AWS Well-Architected Framework principles, emphasizing security, reliability, operational excellence, performance efficiency, and cost optimization.
 
 ## Architecture
 
 ![AWS Architecture](AWS%20Architecture%20diagram.png)
 
-## Technologies
+## Project Objectives
 
-- Amazon VPC
-- EC2
+- Design a secure three-tier architecture in AWS.
+- Implement network segmentation using public and private subnets.
+- Configure secure communication between application and database tiers.
+- Deploy highly available application servers across multiple Availability Zones.
+- Implement load balancing and automatic scaling.
+- Deploy a managed relational database using Amazon RDS.
+- Document each deployment phase with screenshots and engineering explanations.
+- Demonstrate production-ready AWS architecture and cloud engineering best practices.
+
+
+## AWS Services Used
+
+| Service | Purpose |
+|----------|---------|
+| Amazon VPC | Isolated network environment |
+| Internet Gateway | Internet connectivity for public resources |
+| NAT Gateway | Secure outbound internet access for private resources |
+| Route Tables | Traffic routing between subnets |
+| Security Groups | Instance-level firewall protection |
+| Amazon EC2 | Application servers |
+| EC2 User Data | Automated web server configuration |
+| Application Load Balancer | Layer 7 traffic distribution |
+| Target Groups | Health checks and request routing |
+| Amazon Machine Image (AMI) | Standardized server image |
+| Launch Template | Reusable EC2 deployment configuration |
+| Auto Scaling Group | Automatic scaling and self-healing |
+| Amazon RDS (MySQL) | Managed relational database |
+| Amazon EBS | Persistent block storage |
+
+---
+
+## Architecture Highlights
+
+- High Availability across multiple Availability Zones
+- Private Application and Database Subnets
+- Internet-facing Application Load Balancer
+- Auto Scaling EC2 Application Tier
+- Private Amazon RDS Database
+- Infrastructure Automation using EC2 User Data
+- Principle of Least Privilege with Security Groups
+- Managed Database Services
+- Cost-conscious architecture suitable for learning and portfolio development
+
+---
+
+## Skills Demonstrated
+
+- AWS Networking
+- Amazon VPC Design
+- High Availability
+- Fault Tolerance
+- Load Balancing
 - Auto Scaling
-- Application Load Balancer
+- Infrastructure Automation
+- Network Security
 - Amazon RDS
-- Security Groups
-- IAM
+- EC2 Administration
+- Linux Administration
+- Cloud Architecture
+- AWS Best Practices
+- Infrastructure Documentation
 
-## Step 1 - Create the VPC
+## Phase 1 - Create the VPC
 
 Created a custom VPC named three-tier-vpc using the CIDR block 10.0.0.0/16.
 
