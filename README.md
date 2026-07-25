@@ -6,7 +6,7 @@ This project demonstrates how to build a production-style three-tier web archite
 
 ## Architecture
 
-![AWS Architecture](AWS Architecture diagram.png)
+![AWS Architecture](AWS%20Architecture%20diagram.png)
 
 ## Technologies
 
