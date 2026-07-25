@@ -354,7 +354,7 @@ An Auto Scaling Group was created using the custom Launch Template to automatica
 
 ### Screenshot 3 - Auto Scaling Group Healthy Targets
 
-![ASG Healthy Targets](33-asg-targets-healthy.png)
+![ASG Healthy Targets](33-asg-targets-healthy.png.png)
 
 ### Why?
 
