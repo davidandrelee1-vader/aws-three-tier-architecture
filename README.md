@@ -339,3 +339,44 @@ A Launch Template standardizes EC2 deployments by defining the instance configur
 - Infrastructure Standardization
 - Auto Scaling Preparation
 - Immutable Infrastructure
+
+## Phase 10 - Configure Auto Scaling Group
+
+An Auto Scaling Group was created using the custom Launch Template to automatically deploy and maintain EC2 application servers across two Availability Zones. The Auto Scaling Group was integrated with the existing Application Load Balancer and Target Group to provide high availability, automated recovery, and scalable application capacity.
+
+### Screenshot 1 - Auto Scaling Group Created
+
+![Auto Scaling Group](31-autoscaling-group-created.png)
+
+### Screenshot 2 - Auto Scaling Instances Running
+
+![ASG Instances](32-asg-instances-running.png)
+
+### Screenshot 3 - Auto Scaling Group Healthy Targets
+
+![ASG Healthy Targets](33-asg-targets-healthy.png)
+
+### Why?
+
+The Auto Scaling Group improves application resilience by maintaining the required number of EC2 instances and automatically replacing failed instances. Distributing instances across two Availability Zones reduces the impact of a single Availability Zone failure, while the Application Load Balancer routes traffic only to healthy application servers.
+
+### Cloud Engineer Notes
+
+- Created an Auto Scaling Group using the custom Launch Template.
+- Configured a desired capacity of two EC2 instances.
+- Distributed application servers across two Availability Zones.
+- Integrated the Auto Scaling Group with the existing Target Group.
+- Enabled Elastic Load Balancer health checks.
+- Configured dynamic scaling based on average CPU utilization.
+- Verified that all Auto Scaling Group targets successfully passed health checks.
+
+### Skills Demonstrated
+
+- Amazon EC2 Auto Scaling
+- EC2 Launch Templates
+- Application Load Balancer (ALB)
+- Target Groups
+- Health Checks
+- High Availability
+- Fault Tolerance
+- Dynamic Scaling
