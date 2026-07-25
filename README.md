@@ -14,6 +14,179 @@ This project follows AWS Well-Architected Framework principles, emphasizing secu
 
 ![AWS Architecture](AWS%20Architecture%20diagram.png)
 
+# Architecture Walkthrough
+
+The following walkthrough describes how a user request travels through the AWS three-tier architecture.
+
+## Step 1 – Client Request
+
+A user enters the Application Load Balancer (ALB) DNS name into a web browser.
+
+```
+User
+   │
+   ▼
+Application Load Balancer
+```
+
+The internet-facing Application Load Balancer serves as the entry point for all incoming HTTP requests.
+
+---
+
+## Step 2 – Internet Gateway
+
+The request enters the Amazon VPC through the Internet Gateway.
+
+```
+Internet
+   │
+Internet Gateway
+   │
+Application Load Balancer
+```
+
+The Internet Gateway provides connectivity between the public internet and resources deployed within the public subnets.
+
+---
+
+## Step 3 – Application Load Balancer
+
+The Application Load Balancer receives the request and evaluates the listener rules.
+
+```
+Application Load Balancer
+          │
+          ▼
+      Target Group
+```
+
+The ALB forwards requests only to healthy EC2 instances that have successfully passed health checks.
+
+---
+
+## Step 4 – Target Group
+
+The Target Group continuously monitors the health of all EC2 instances.
+
+```
+Target Group
+      │
+      ▼
+Healthy EC2 Instances
+```
+
+If an instance becomes unhealthy, the ALB automatically stops sending traffic to that instance.
+
+---
+
+## Step 5 – Auto Scaling Group
+
+The Auto Scaling Group maintains the desired number of EC2 instances across multiple Availability Zones.
+
+```
+Auto Scaling Group
+      │
+ ┌────┴────┐
+ ▼         ▼
+EC2       EC2
+AZ-1      AZ-2
+```
+
+If an EC2 instance fails, the Auto Scaling Group automatically launches a replacement using the Launch Template and custom Amazon Machine Image (AMI).
+
+---
+
+## Step 6 – EC2 Application Servers
+
+The application servers process incoming HTTP requests.
+
+Security Groups restrict inbound traffic so that only the Application Load Balancer can communicate with the EC2 instances.
+
+```
+Application Load Balancer
+          │
+          ▼
+     app-sg
+          │
+          ▼
+EC2 Application Servers
+```
+
+The web server running on each EC2 instance was automatically installed and configured using EC2 User Data.
+
+---
+
+## Step 7 – Amazon RDS
+
+When the application requires persistent data, the EC2 instances communicate with Amazon RDS using MySQL on port 3306.
+
+```
+EC2
+ │
+ │ MySQL 3306
+ ▼
+Amazon RDS
+```
+
+The RDS database resides within private database subnets and is protected by the `db-sg` security group.
+
+Only application servers associated with `app-sg` can access the database.
+
+---
+
+## Step 8 – Response Returned
+
+After processing the request, the application returns the response through the same path.
+
+```
+Amazon RDS
+      ▲
+      │
+EC2 Application Server
+      ▲
+      │
+Application Load Balancer
+      ▲
+      │
+User
+```
+
+The client receives the requested web page without ever communicating directly with the EC2 instances or Amazon RDS.
+
+---
+
+# Security Flow
+
+- Users communicate only with the Application Load Balancer.
+- EC2 instances remain within private application subnets.
+- Amazon RDS remains isolated within private database subnets.
+- Security Groups enforce least-privilege communication between tiers.
+- NAT Gateway provides outbound internet access for private application servers without exposing them to inbound internet traffic.
+
+---
+
+# High Availability
+
+The architecture was designed using multiple Availability Zones to improve resilience.
+
+- Application Load Balancer spans two public subnets.
+- Auto Scaling Group distributes EC2 instances across two Availability Zones.
+- Database subnet group spans two Availability Zones.
+- Target Groups continuously perform health checks.
+- Auto Scaling automatically replaces unhealthy EC2 instances.
+
+---
+
+# AWS Well-Architected Framework Principles
+
+This architecture aligns with several AWS Well-Architected Framework pillars:
+
+- **Operational Excellence** – Automated EC2 provisioning using User Data and Launch Templates.
+- **Security** – Private subnets, Security Groups, least-privilege access, and isolated database tier.
+- **Reliability** – Multi-AZ deployment, Auto Scaling, and Application Load Balancer health checks.
+- **Performance Efficiency** – Elastic Load Balancing distributes traffic across healthy instances.
+- **Cost Optimization** – Right-sized resources were selected for a learning environment while maintaining production-style architecture.
+
 ## Project Objectives
 
 - Design a secure three-tier architecture in AWS.
