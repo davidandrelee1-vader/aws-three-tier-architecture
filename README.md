@@ -380,3 +380,44 @@ The Auto Scaling Group improves application resilience by maintaining the requir
 - High Availability
 - Fault Tolerance
 - Dynamic Scaling
+
+## Phase 11 - Deploy Amazon RDS
+
+An Amazon RDS for MySQL database was deployed within the private database tier of the three-tier architecture. A dedicated DB Subnet Group was created using the two private database subnets, ensuring the database is isolated from direct internet access. Database connectivity is secured using a dedicated security group that only permits MySQL traffic from the application tier.
+
+### Screenshot 1 - Database Subnet Group
+
+![Database Subnet Group](34-db-subnet-group-created.png)
+
+### Screenshot 2 - Amazon RDS Available
+
+![Amazon RDS Available](35-rds-database-available.png)
+
+### Screenshot 3 - Database Security Group
+
+![Database Security Group](36-rds-security-group-rules.png)
+
+### Why?
+
+Amazon RDS provides a fully managed relational database service that automates database provisioning, backups, patching, and maintenance. Deploying the database within private subnets prevents direct internet access, while restricting inbound MySQL traffic to the application security group (`app-sg`) follows the principle of least privilege and strengthens the overall security of the three-tier architecture.
+
+### Cloud Engineer Notes
+
+- Created a dedicated DB Subnet Group spanning two Availability Zones.
+- Deployed an Amazon RDS for MySQL database in private database subnets.
+- Disabled public accessibility to prevent direct internet access.
+- Configured the `db-sg` security group to allow MySQL (TCP 3306) traffic only from the `app-sg` security group.
+- Isolated the database tier from the public internet while allowing secure communication from the application tier.
+- Protected database credentials by excluding passwords and sensitive information from project documentation and screenshots.
+
+### Skills Demonstrated
+
+- Amazon RDS
+- MySQL
+- DB Subnet Groups
+- Private Database Deployment
+- VPC Networking
+- Security Group Referencing
+- Network Segmentation
+- Managed Database Services
+- AWS Security Best Practices
